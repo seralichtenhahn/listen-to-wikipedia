@@ -245,6 +245,10 @@ var rate_bg = svg.append('rect')
     .attr('width', width)
     .attr('height', height)
 */
+
+var soundEffect = 'js/fart.mp3';
+
+
 function play_sound(size, type, volume) {
     var max_pitch = 100.0;
     var log_used = 1.0715307808111486871978099;
@@ -256,11 +260,22 @@ function play_sound(size, type, volume) {
     index = Math.max(1, index);
     if (current_notes < note_overlap) {
         current_notes++;
-        if (type == 'add') {
-            celesta[index].play();
+        if (Math.random() < 0.2) {
+            var audio = new Audio(soundEffect);
+            audio.volume = volume;
+            audio.play();
+            console.log('played fart');
         } else {
-            clav[index].play();
+            if (type == 'add') {
+                celesta[index].play();
+            } else {
+                clav[index].play();
+            }
         }
+
+        
+
+        
         setTimeout(function() {
             current_notes--;
         }, note_timeout);
